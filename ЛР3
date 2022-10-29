@@ -1,0 +1,32 @@
+#include <iostream>
+using namespace std;
+
+double arth(double x, double eps)
+{
+	double res = 1 / x, term = 1 / x, x2 = 1 / (x * x);
+	for (int k = 0; abs(term) > eps; ++k)
+		res += term *= x2 * (2 * k + 1) / (2 * k + 3);
+	return res;
+}
+
+int main()
+{
+	setlocale(LC_ALL, "ru");
+	float x;
+	cout << "Введите значение аргумента функции:";
+	cin >> x;
+
+	double Sum = x, q = x, eps = 0.0001f;
+	int n = 1;
+
+	while (true) 
+	{	
+		n += 2;
+		q = q * pow(x, 2) / n;
+		Sum += q;
+		if (q < eps) {
+			break;
+		}
+	}
+	cout << "\nСумма ряда= " << Sum << " Значение ATAN(X)=" << atan(x);
+}
