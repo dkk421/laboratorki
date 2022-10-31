@@ -1,0 +1,49 @@
+#include <iostream>
+#include <ctime>
+using namespace std;
+
+int main()
+{
+	setlocale(LC_ALL, "ru");
+	int Xsize, Ysize;
+	cout << "Введите кол-во строк и кол-во столбцов\n";
+	cin >> Xsize >> Ysize;
+
+	int** mass = new int* [Xsize];
+
+	for (int i = 0; i <= Xsize; i++) {
+		mass[i] = new int[Ysize];
+	}
+	srand(time(NULL));
+	for (int i = 0; i < Xsize; i++) {
+		for (int j = 0; j < Ysize; j++) {
+			mass[i][j] = -10 + rand() % 31;
+		}
+	}
+// вывожу изначальный вид матрицы
+	for (int i = 0; i < Xsize; i++) {
+		for (int j = 0; j < Ysize; j++) {
+			printf("%3d ", mass[i][j]);
+		}
+		cout << "\n";
+	}
+	cout << "\n\n";
+// среднее геометрическое соответствующих элементов главной и побочной матрицы записываю в последний ряд
+	for (int i = 0; i < Xsize; i++) {
+		for (int j = 0; j < Ysize; j++) {
+			int el = abs(mass[i][j] * mass[i][Ysize-1-j]);
+			mass[i][Ysize-1] = pow(el, 0.5);
+			break;
+		}
+	}
+// вывожу полученную матрицу
+	for (int i = 0; i < Xsize; i++) {
+		for (int j = 0; j < Ysize; j++) {
+			printf("%3d ",mass[i][j]);
+		}
+		cout << "\n";
+
+	}
+	delete[] mass;
+
+}
